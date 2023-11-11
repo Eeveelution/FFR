@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import ContentItem from './Components/ContentItem';
 import InstructionFormat from './Components/InstructionFormat';
+import { FmtEmpty, FmtRegisterOperation } from './InstructionFormats';
 
 function App() {
 	return (
@@ -118,21 +119,184 @@ function App() {
 						<table>
 							<tr>
 								<td style={{ minWidth: "150px"}}>
-									ALU Operation 
-									<br/>(add, sub, mul, div)
-									<br/>(bsr, bsl, and, or)
-									<br/>(xor, not)
+									Register Operation (ALU/CMP/MOV) 
 								</td>
 								<td style={{ width: "100%" }}>
-									<InstructionFormat totalSize={50} offset={-6} elements={[
-										{ name: "ALU Op",  size: 4,  color: "cyan", lightColor: true },
-										{ name: "Opperand 1",  size: 6,  color: "green" },
-										{ name: "Opperand 2",  size: 6,  color: "green" },
-										{ name: "Destination", size: 6,  color: "orange", lightColor: true },
-										{ name: "Remaining",   size: 28, color: "gray" },
-									]} />
+									<FmtRegisterOperation />
 								</td>
 							</tr>
+						</table>
+					</ContentItem>
+
+					<ContentItem id='instructions' title='Instructions'>
+						<FmtEmpty />
+
+						<table style={{ width: "80%", marginLeft: "auto", marginRight: "auto", border: "1px solid white" }}>
+							<tr>
+								<td>Instruction</td>
+								<td>Opcode</td>
+								<td>Operation</td>
+							</tr>
+							<tr>
+								<td>nop</td>
+								<td>0</td>
+								<td>nothing.</td>
+							</tr>
+						</table>
+
+						<br/>
+
+						<h2>Register Operation</h2>
+
+						<FmtRegisterOperation />
+
+						<table style={{ width: "80%", marginLeft: "auto", marginRight: "auto", border: "1px solid white" }}>
+							<tr>
+								<td>Instruction</td>
+								<td>Opcode</td>
+								<td>Type</td>
+								<td>Operation</td>
+							</tr>
+
+							<tr>
+								<td>mov</td>
+								<td>1</td>
+								<td>0</td>
+								<td>dest = op1</td>
+							</tr>
+							<tr>
+								<td>fmov</td>
+								<td>1</td>
+								<td>1</td>
+								<td>dest = op1</td>
+							</tr>
+
+
+
+							<tr>
+								<td>------</td>
+								<td> ALU</td>
+								<td></td>
+								<td></td>
+							</tr>
+
+
+
+							<tr>
+								<td>add</td>
+								<td>2</td>
+								<td>0</td>
+								<td>op1 + op2 = dest</td>
+							</tr>
+							<tr>
+								<td>sub</td>
+								<td>2</td>
+								<td>1</td>
+								<td>op1 - op2 = dest</td>
+							</tr>
+							<tr>
+								<td>mul</td>
+								<td>2</td>
+								<td>2</td>
+								<td>op1 * op2 = dest</td>
+							</tr>
+							<tr>
+								<td>div</td>
+								<td>2</td>
+								<td>3</td>
+								<td>op1 / op2 = dest</td>
+							</tr>
+							<tr>
+								<td>bsl</td>
+								<td>2</td>
+								<td>4</td>
+								<td>op1 &lt;&lt; op2 = dest</td>
+							</tr>
+							<tr>
+								<td>bsr</td>
+								<td>2</td>
+								<td>5</td>
+								<td>op1 &gt;&gt; op2 = dest</td>
+							</tr>
+							<tr>
+								<td>and</td>
+								<td>2</td>
+								<td>6</td>
+								<td>op1 & op2 = dest</td>
+							</tr>
+							<tr>
+								<td>or</td>
+								<td>2</td>
+								<td>7</td>
+								<td>op1 | op2 = dest</td>
+							</tr>
+							<tr>
+								<td>not</td>
+								<td>2</td>
+								<td>7</td>
+								<td>op1 ~ op2 = dest</td>
+							</tr>
+							<tr>
+								<td>xor</td>
+								<td>2</td>
+								<td>8</td>
+								<td>op1 ^ op2 = dest</td>
+							</tr>
+
+
+
+							<tr>
+								<td>------</td>
+								<td> Comparisons</td>
+								<td></td>
+								<td></td>
+							</tr>
+
+
+
+
+
+							<tr>
+								<td>cmpeq</td>
+								<td>3</td>
+								<td>0</td>
+								<td>op1 == op2 = dest</td>
+							</tr>
+							<tr>
+								<td>cmplt</td>
+								<td>3</td>
+								<td>1</td>
+								<td>op1 &lt; op2 = dest</td>
+							</tr>
+							<tr>
+								<td>cmpgt</td>
+								<td>3</td>
+								<td>2</td>
+								<td>op1 &gt; op2 = dest</td>
+							</tr>
+
+
+
+
+
+							<tr>
+								<td>------</td>
+								<td> Misc</td>
+								<td></td>
+								<td></td>
+							</tr>
+
+
+
+
+
+							<tr>
+								<td>jmp</td>
+								<td>4</td>
+								<td>0</td>
+								<td>IP = op1</td>
+							</tr>
+
 						</table>
 					</ContentItem>
 				</div>

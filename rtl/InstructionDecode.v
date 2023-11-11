@@ -9,27 +9,27 @@ module InstructionDecode (
     opcode,
     predicate,
 
-    aluOp,
-    aluOpperand1,
-    aluOpperand2,
-    aluDest
+    regOp,
+    regOpperand1,
+    regOpperand2,
+    regDest
 );
 
     input wire clk, decodeEnable;
     input reg [`GR_SIZE] instructionData;
 
-    output reg [8-1:0] opcode;
-    output reg [6-1:0] predicate;
-    output reg [4-1:0] aluOp;
-    output reg [6-1:0] aluOpperand1;
-    output reg [6-1:0] aluOpperand2;
-    output reg [6-1:0] aluDest;
+    output wire [8-1:0] opcode;
+    output wire [6-1:0] predicate;
+    output wire [4-1:0] regOp;
+    output wire [6-1:0] regOpperand1;
+    output wire [6-1:0] regOpperand2;
+    output wire [6-1:0] regDest;
 
     assign opcode    = instructionData[63:56];
     assign predicate = instructionData[5:0];
 
-    assign aluOp        = instructionData[55:52];
-    assign aluOpperand1 = instructionData[51:46];
-    assign aluOpperand2 = instructionData[45:40];
-    assign aluDest      = instructionData[39:34];
+    assign regOp        = instructionData[55:52];
+    assign regOpperand1 = instructionData[51:46];
+    assign regOpperand2 = instructionData[45:40];
+    assign regDest      = instructionData[39:34];
 endmodule

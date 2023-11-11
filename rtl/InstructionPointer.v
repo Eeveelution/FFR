@@ -12,12 +12,13 @@ module InstructionPointer (
     resetEnable,   /* Reset signal */
     out,           /* Output Value for the IP */
     adjust,        /* How much to adjust by */
-    updateEnable   /* When high, adjusts value by `adjust` */
+    updateEnable,  /* When high, adjusts value by `adjust` */
+    setEnable      /* When high, sets value to `adjust` */
 );
     output reg [`GR_SIZE] out = 0;
 
     input wire signed [`GR_SIZE] adjust;
-    input wire clk, updateEnable, resetEnable;
+    input wire clk, updateEnable, resetEnable, setEnable;
 
     always @(posedge clk) begin
         if(resetEnable) begin
@@ -26,6 +27,9 @@ module InstructionPointer (
         end else if(updateEnable) begin
             // Adjust Instruction Pointer 
             out <= out + adjust;
+        end else if(setEnable) begin
+            // Set Instruction Pointer
+            out <= adjust;
         end
     end
 endmodule
