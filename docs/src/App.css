@@ -29,7 +29,7 @@ code {
 	color: white;
 
 	position: fixed;
-	left: calc(250px + 4vw);
+	left: calc(125px + 4vw);
 
 	min-height: 100%;
 	width: calc(calc(100% - 300px) - calc(5.5vw));
