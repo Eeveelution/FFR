@@ -16,11 +16,6 @@ module InstructionDecode (
     output reg [8-1:0] opcode;
     output reg [6-1:0] predicate;
 
-    always @(posedge clk) begin
-        if(decodeEnable) begin
-            opcode = instructionData & 255;
-            predicate = (instructionData >> 58) & 63; 
-        end
-    end
-
+    assign opcode = instructionData[7:0];
+    assign predicate = instructionData[63:64-6];
 endmodule
