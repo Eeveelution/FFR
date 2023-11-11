@@ -16,8 +16,125 @@
     <div class="content-flex">
         <div class="main-content">
             <div class="inner-content">
-                <div class="content-item">
+                <!-- Top header -->
+                <div class="content-item" id="top">
+                    <h1>FFR Wiki</h1>
 
+                    <p>
+                        This is a Wiki which displays all information about the FFR Architecture. <br/>
+                        Here's a Table of contents for easy browsing:
+                    </p>
+
+                    <ul>
+                        <li><a href="#about-ffr">About FFR</a></li>
+                        <li><a href="#instruction-format">Instruction Format</a></li>
+                    </ul>
+                </div>
+
+                <div class="content-item" id="about-ffr">
+                    <h2>About FFR</h2>
+
+                    <p>
+                        FFR (Furball Fluffy RISC) is a Architecture designed my Furball, 
+                        This is mainly for 
+                        
+                        <b style="color: coral">educational purposes</b>
+                        
+                        and to explore FPGA development.
+                        FPGAs seem to be the best route for me as a Software Developer to get into hardware,
+                        I've tried Arduino and things like that but I never really had a compelling
+                        project I wanted to do on those. and a FPGA is literally a programmable chip,
+                        which makes it perfect for 
+                        
+                        <b style="color: coral">custom CPUs and GPUs</b>
+                        
+                        which are projects that I'd actally be interested in.
+
+                        <br/><br/>
+
+                        FFR takes alot of things from other Architectures that I like,
+                        like <b style="color: coral">Alpha</b> and <b style="color: lightseagreen">Itanium</b>.
+                        Like a Predicate for each instruction (taken from Itanium), 
+                        aswell as the lack of a Flags register (taken from Alpha).
+                        I've basically taken the things that in my opinion make for a good CPU Architecture,
+                        I liked the 
+                        
+                        <b style="color: purple">Qualifying Predicate</b>
+                        
+                        from Itanium because it allows for any instruction to be
+                        a Conditional instruction, making pipelining easier, as a small branch would no longer
+                        have to cause a pipeline stall/reset.
+
+                        I liked the lack of flags register because it makes Multi CPU/Multi-core implementations easier, 
+                        as they won't have to rely on a shared flags register, reducing the amount that the flags register
+                        is used. (Also it will make implementation in verilog easier, as it's 1 less register I have to worry about)
+                    </p>
+                </div>
+
+                <div class="content-item" id="instruction-format">
+                    <h2>Instruction Formatting</h2>
+
+                    <p>
+                        FFR Instructions are all 64-bit (8 bytes) in size. The base Instruction Encoding common for all instructions,
+                        is a 6-bit Predicate, and a 8-bit opcode. The Predicate is used for conditional instructions, every Instruction
+                        can be executed conditionally, the 6-bit Predicate is an Index into the General Register File.
+                        If let's say there is a: 
+                        
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp; 
+                        
+                        <code>
+                            <span style="color: greenyellow">cmpeq</span> 
+                            <span style="color: coral"> r12</span>,
+                            <span style="color: coral"> r13</span> = 
+                            <span style="color: coral">r8</span>
+                        </code>
+
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp; 
+                        
+                        (Compare equality between r12 and r13, and put the result into r8)
+
+                        <br/><br/>
+
+                        And afterwards there is a: 
+
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp; 
+                        
+                        <code>
+                            <span style="color: blueviolet"> (8)</span>
+                            <span style="color: greenyellow">mul</span> 
+                            <span style="color: coral"> r31</span>, 
+                            <span style="color: coral">r32</span> =
+                            <span style="color: coral">r33</span>
+                        </code>
+
+                        <br/> &nbsp;&nbsp;&nbsp;&nbsp; 
+                        
+                        (Multiply r31 by r32 and store result in r33)
+
+                        <br/><br/>
+
+                        The multiply instruction will only execute if General Register 8 is equal to or above 1.
+
+                        <table class='format-tables' style="width: 100%">
+                            <!-- Offsets -->
+                            <tr>
+                                <td>128</td>
+                                <td>122</td>
+                                <td>8</td>
+                            </tr>
+                            <tr>
+                                <td style="color: white; text-align: center; background-color: purple; height: 40px; width: 9.375%;">Predicate</td>
+                                <td style="color: black; text-align: center; background-color: gray; height: 40px; width: 78.125%;">Instruction Specific</td>
+                                <td style="color: black; text-align: center; background-color: coral; height: 40px; width: 12.5%;">Opcode</td>
+                            </tr>
+                            <!-- Sizes -->
+                            <tr>
+                                <td style="text-align: center">6</td>
+                                <td style="text-align: center">50</td>
+                                <td style="text-align: center">8</td>
+                            </tr>
+                        </table>
+                    </p>
                 </div>
             </div>
         </div>
