@@ -11,8 +11,9 @@ module CPU (
     wire 
         doFetch, 
         doDecode,
+        doSetIP,
         doNext, 
         doReset;
 
-    InstructionPointer IP(clk, doReset, REG_PC, ADJ_REG_PC, doNext);
+    InstructionPointer IP(clk, doReset, REG_PC, ADJ_REG_PC, doNext, doSetIP);
 endmodule

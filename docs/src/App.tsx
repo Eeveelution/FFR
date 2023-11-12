@@ -162,20 +162,20 @@ function App() {
 								<td>mov</td>
 								<td>1</td>
 								<td>0</td>
-								<td>dest = op1</td>
+								<td>GR[dest] = GR[op1]</td>
 							</tr>
 							<tr>
 								<td>fmov</td>
 								<td>1</td>
 								<td>1</td>
-								<td>dest = op1</td>
+								<td>FR[dest] = FR[op1]</td>
 							</tr>
 
 
 
 							<tr>
 								<td>------</td>
-								<td> ALU</td>
+								<td>Integer ALU</td>
 								<td></td>
 								<td></td>
 							</tr>
@@ -186,61 +186,61 @@ function App() {
 								<td>add</td>
 								<td>2</td>
 								<td>0</td>
-								<td>op1 + op2 = dest</td>
+								<td>GR[op1] + GR[op2] = GR[dest]</td>
 							</tr>
 							<tr>
 								<td>sub</td>
 								<td>2</td>
 								<td>1</td>
-								<td>op1 - op2 = dest</td>
+								<td>GR[op1] - GR[op2] = GR[dest]</td>
 							</tr>
 							<tr>
 								<td>mul</td>
 								<td>2</td>
 								<td>2</td>
-								<td>op1 * op2 = dest</td>
+								<td>GR[op1] * GR[op2] = GR[dest]</td>
 							</tr>
 							<tr>
 								<td>div</td>
 								<td>2</td>
 								<td>3</td>
-								<td>op1 / op2 = dest</td>
+								<td>GR[op1] / GR[op2] = GR[dest]</td>
 							</tr>
 							<tr>
 								<td>bsl</td>
 								<td>2</td>
 								<td>4</td>
-								<td>op1 &lt;&lt; op2 = dest</td>
+								<td>GR[op1] &lt;&lt; GR[op2] = GR[dest]</td>
 							</tr>
 							<tr>
 								<td>bsr</td>
 								<td>2</td>
 								<td>5</td>
-								<td>op1 &gt;&gt; op2 = dest</td>
+								<td>GR[op1] &gt;&gt; GR[op2] = GR[dest]</td>
 							</tr>
 							<tr>
 								<td>and</td>
 								<td>2</td>
 								<td>6</td>
-								<td>op1 & op2 = dest</td>
+								<td>GR[op1] & GR[op2] = GR[dest]</td>
 							</tr>
 							<tr>
 								<td>or</td>
 								<td>2</td>
 								<td>7</td>
-								<td>op1 | op2 = dest</td>
+								<td>GR[op1] | GR[op2] = GR[dest]</td>
 							</tr>
 							<tr>
 								<td>not</td>
 								<td>2</td>
 								<td>7</td>
-								<td>op1 ~ op2 = dest</td>
+								<td>GR[op1] ~ GR[op2] = GR[dest]</td>
 							</tr>
 							<tr>
 								<td>xor</td>
 								<td>2</td>
 								<td>8</td>
-								<td>op1 ^ op2 = dest</td>
+								<td>GR[op1] ^ GR[op2] = GR[dest]</td>
 							</tr>
 
 
@@ -260,20 +260,100 @@ function App() {
 								<td>cmpeq</td>
 								<td>3</td>
 								<td>0</td>
-								<td>op1 == op2 = dest</td>
+								<td>GR[op1] == GR[op2] = GR[dest]</td>
 							</tr>
 							<tr>
 								<td>cmplt</td>
 								<td>3</td>
 								<td>1</td>
-								<td>op1 &lt; op2 = dest</td>
+								<td>GR[op1] &lt; GR[op2] = GR[dest]</td>
 							</tr>
 							<tr>
 								<td>cmpgt</td>
 								<td>3</td>
 								<td>2</td>
-								<td>op1 &gt; op2 = dest</td>
+								<td>GR[op1] &gt; GR[op2] = GR[dest]</td>
 							</tr>
+
+							<tr>
+								<td>fcmpeq</td>
+								<td>3</td>
+								<td>3</td>
+								<td>FR[op1] == FR[op2] = GR[dest]</td>
+							</tr>
+							<tr>
+								<td>fcmplt</td>
+								<td>3</td>
+								<td>4</td>
+								<td>FR[op1] &lt; FR[op2] = GR[dest]</td>
+							</tr>
+							<tr>
+								<td>fcmpgt</td>
+								<td>3</td>
+								<td>5</td>
+								<td>FR[op1] &gt; FR[op2] = GR[dest]</td>
+							</tr>
+
+
+
+
+
+							<tr>
+								<td>------</td>
+								<td> Memory Loads</td>
+								<td></td>
+								<td></td>
+							</tr>
+
+
+
+
+
+							<tr>
+								<td>ldb</td>
+								<td>4</td>
+								<td>0</td>
+								<td>Loads 1 byte at address GR[op1] into dest</td>
+							</tr>
+							<tr>
+								<td>lds</td>
+								<td>4</td>
+								<td>1</td>
+								<td>Loads 2 bytes at address GR[op1] into dest</td>
+							</tr>
+							<tr>
+								<td>ldi</td>
+								<td>4</td>
+								<td>2</td>
+								<td>Loads 4 bytes at address GR[op1] into dest</td>
+							</tr>
+							<tr>
+								<td>ldq</td>
+								<td>4</td>
+								<td>3</td>
+								<td>Loads 8 bytes at address GR[op1] into dest</td>
+							</tr>
+
+							<tr>
+								<td>fpl2</td>
+								<td>4</td>
+								<td>4</td>
+								<td>Loads a 16-bit float at address GR[op1] into FR[dest]</td>
+							</tr>
+							<tr>
+								<td>fpl4</td>
+								<td>4</td>
+								<td>5</td>
+								<td>Loads a 32-bit float at address GR[op1] into FR[dest]</td>
+							</tr>
+							<tr>
+								<td>fpl8</td>
+								<td>4</td>
+								<td>6</td>
+								<td>Loads a 64-bit float at address GR[op1] into FR[dest]</td>
+							</tr>
+
+
 
 
 
@@ -292,9 +372,9 @@ function App() {
 
 							<tr>
 								<td>jmp</td>
-								<td>4</td>
+								<td>5</td>
 								<td>0</td>
-								<td>IP = op1</td>
+								<td>IP = GR[op1]</td>
 							</tr>
 
 						</table>
