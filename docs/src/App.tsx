@@ -3,6 +3,7 @@ import './App.css';
 import ContentItem from './Components/ContentItem';
 import InstructionFormat from './Components/InstructionFormat';
 import { FmtEmpty, FmtRegisterOperation } from './InstructionFormats';
+import { InstructionTableItem } from './Components/InstructionTableItem';
 
 function App() {
 	return (
@@ -158,20 +159,8 @@ function App() {
 								<td>Operation</td>
 							</tr>
 
-							<tr>
-								<td>mov</td>
-								<td>1</td>
-								<td>0</td>
-								<td>GR[dest] = GR[op1]</td>
-							</tr>
-							<tr>
-								<td>fmov</td>
-								<td>1</td>
-								<td>1</td>
-								<td>FR[dest] = FR[op1]</td>
-							</tr>
-
-
+							<InstructionTableItem name='mov' opcode={1} extensions={[ "0" ]} operation='GR[dest] = GR[op1]'/>
+							<InstructionTableItem name='fmov' opcode={1} extensions={[ "1" ]} operation='FR[dest] = FR[op1]'/>
 
 							<tr>
 								<td>------</td>
@@ -180,70 +169,16 @@ function App() {
 								<td></td>
 							</tr>
 
-
-
-							<tr>
-								<td>add</td>
-								<td>2</td>
-								<td>0</td>
-								<td>GR[op1] + GR[op2] = GR[dest]</td>
-							</tr>
-							<tr>
-								<td>sub</td>
-								<td>2</td>
-								<td>1</td>
-								<td>GR[op1] - GR[op2] = GR[dest]</td>
-							</tr>
-							<tr>
-								<td>mul</td>
-								<td>2</td>
-								<td>2</td>
-								<td>GR[op1] * GR[op2] = GR[dest]</td>
-							</tr>
-							<tr>
-								<td>div</td>
-								<td>2</td>
-								<td>3</td>
-								<td>GR[op1] / GR[op2] = GR[dest]</td>
-							</tr>
-							<tr>
-								<td>bsl</td>
-								<td>2</td>
-								<td>4</td>
-								<td>GR[op1] &lt;&lt; GR[op2] = GR[dest]</td>
-							</tr>
-							<tr>
-								<td>bsr</td>
-								<td>2</td>
-								<td>5</td>
-								<td>GR[op1] &gt;&gt; GR[op2] = GR[dest]</td>
-							</tr>
-							<tr>
-								<td>and</td>
-								<td>2</td>
-								<td>6</td>
-								<td>GR[op1] & GR[op2] = GR[dest]</td>
-							</tr>
-							<tr>
-								<td>or</td>
-								<td>2</td>
-								<td>7</td>
-								<td>GR[op1] | GR[op2] = GR[dest]</td>
-							</tr>
-							<tr>
-								<td>not</td>
-								<td>2</td>
-								<td>7</td>
-								<td>GR[op1] ~ GR[op2] = GR[dest]</td>
-							</tr>
-							<tr>
-								<td>xor</td>
-								<td>2</td>
-								<td>8</td>
-								<td>GR[op1] ^ GR[op2] = GR[dest]</td>
-							</tr>
-
-
+							<InstructionTableItem name='add' opcode={2} extensions={[ "0" ]} operation='GR[op1] + GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='sub' opcode={2} extensions={[ "1" ]} operation='GR[op1] - GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='mul' opcode={2} extensions={[ "2" ]} operation='GR[op1] * GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='div' opcode={2} extensions={[ "3" ]} operation='GR[op1] / GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='bsl' opcode={2} extensions={[ "4" ]} operation='GR[op1] << GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='bsr' opcode={2} extensions={[ "5" ]} operation='GR[op1] >> GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='and' opcode={2} extensions={[ "6" ]} operation='GR[op1] & GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='or'  opcode={2} extensions={[ "6" ]} operation='GR[op1] | GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='not' opcode={2} extensions={[ "6" ]} operation='GR[op1] ~ GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='xor' opcode={2} extensions={[ "6" ]} operation='GR[op1] ^ GR[op2] = GR[dest]'/>
 
 							<tr>
 								<td>------</td>
@@ -252,51 +187,10 @@ function App() {
 								<td></td>
 							</tr>
 
-
-
-
-
-							<tr>
-								<td>cmpeq</td>
-								<td>3</td>
-								<td>0</td>
-								<td>GR[op1] == GR[op2] = GR[dest]</td>
-							</tr>
-							<tr>
-								<td>cmplt</td>
-								<td>3</td>
-								<td>1</td>
-								<td>GR[op1] &lt; GR[op2] = GR[dest]</td>
-							</tr>
-							<tr>
-								<td>cmpgt</td>
-								<td>3</td>
-								<td>2</td>
-								<td>GR[op1] &gt; GR[op2] = GR[dest]</td>
-							</tr>
-
-							<tr>
-								<td>fcmpeq</td>
-								<td>3</td>
-								<td>3</td>
-								<td>FR[op1] == FR[op2] = GR[dest]</td>
-							</tr>
-							<tr>
-								<td>fcmplt</td>
-								<td>3</td>
-								<td>4</td>
-								<td>FR[op1] &lt; FR[op2] = GR[dest]</td>
-							</tr>
-							<tr>
-								<td>fcmpgt</td>
-								<td>3</td>
-								<td>5</td>
-								<td>FR[op1] &gt; FR[op2] = GR[dest]</td>
-							</tr>
-
-
-
-
+							<InstructionTableItem name='cmpeq'  opcode={3} extensions={[ "0" ]} operation='GR[op1] == GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='cmpgt'  opcode={3} extensions={[ "1" ]} operation='GR[op1] > GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='fcmpeq' opcode={3} extensions={[ "2" ]} operation='FR[op1] > FR[op2] = GR[dest]'/>
+							<InstructionTableItem name='fcmpgt' opcode={3} extensions={[ "3" ]} operation='FR[op1] > FR[op2] = GR[dest]'/>
 
 							<tr>
 								<td>------</td>
@@ -305,59 +199,13 @@ function App() {
 								<td></td>
 							</tr>
 
-
-
-
-
-							<tr>
-								<td>ldb</td>
-								<td>4</td>
-								<td>0</td>
-								<td>Loads 1 byte at address GR[op1] into dest</td>
-							</tr>
-							<tr>
-								<td>lds</td>
-								<td>4</td>
-								<td>1</td>
-								<td>Loads 2 bytes at address GR[op1] into dest</td>
-							</tr>
-							<tr>
-								<td>ldi</td>
-								<td>4</td>
-								<td>2</td>
-								<td>Loads 4 bytes at address GR[op1] into dest</td>
-							</tr>
-							<tr>
-								<td>ldq</td>
-								<td>4</td>
-								<td>3</td>
-								<td>Loads 8 bytes at address GR[op1] into dest</td>
-							</tr>
-
-							<tr>
-								<td>fpl2</td>
-								<td>4</td>
-								<td>4</td>
-								<td>Loads a 16-bit float at address GR[op1] into FR[dest]</td>
-							</tr>
-							<tr>
-								<td>fpl4</td>
-								<td>4</td>
-								<td>5</td>
-								<td>Loads a 32-bit float at address GR[op1] into FR[dest]</td>
-							</tr>
-							<tr>
-								<td>fpl8</td>
-								<td>4</td>
-								<td>6</td>
-								<td>Loads a 64-bit float at address GR[op1] into FR[dest]</td>
-							</tr>
-
-
-
-
-
-
+							<InstructionTableItem name='ldb' opcode={4} extensions={[ "0" ]} operation='Loads 1 byte at address GR[op1] into GR[dest]'/>
+							<InstructionTableItem name='lds' opcode={4} extensions={[ "1" ]} operation='Loads 2 bytes at address GR[op1] into GR[dest]'/>
+							<InstructionTableItem name='ldi' opcode={4} extensions={[ "2" ]} operation='Loads 4 bytes at address GR[op1] into GR[dest]'/>
+							<InstructionTableItem name='ldq' opcode={4} extensions={[ "3" ]} operation='Loads 8 bytes at address GR[op1] into GR[dest]'/>
+							<InstructionTableItem name='fpl2' opcode={4} extensions={[ "4" ]} operation='Loads a 16-bit float at address GR[op1] into FR[dest]'/>
+							<InstructionTableItem name='fpl4' opcode={4} extensions={[ "5" ]} operation='Loads a 32-bit float at address GR[op1] into FR[dest]'/>
+							<InstructionTableItem name='fpl8' opcode={4} extensions={[ "6" ]} operation='Loads a 64-bit float at address GR[op1] into FR[dest]'/>
 
 							<tr>
 								<td>------</td>
@@ -366,9 +214,7 @@ function App() {
 								<td></td>
 							</tr>
 
-
-
-
+							<InstructionTableItem name='jmp' opcode={5} extensions={[ "0" ]} operation='IP = GR[op1]'/>
 
 							<tr>
 								<td>jmp</td>
