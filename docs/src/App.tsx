@@ -199,10 +199,10 @@ function App() {
 								<td></td>
 							</tr>
 
-							<InstructionTableItem name='ldb' opcode={4} extensions={[ "0" ]} operation='Loads 1 byte at address GR[op1] into GR[dest]'/>
-							<InstructionTableItem name='lds' opcode={4} extensions={[ "1" ]} operation='Loads 2 bytes at address GR[op1] into GR[dest]'/>
-							<InstructionTableItem name='ldi' opcode={4} extensions={[ "2" ]} operation='Loads 4 bytes at address GR[op1] into GR[dest]'/>
-							<InstructionTableItem name='ldq' opcode={4} extensions={[ "3" ]} operation='Loads 8 bytes at address GR[op1] into GR[dest]'/>
+							<InstructionTableItem name='ldb'  opcode={4} extensions={[ "0" ]} operation='Loads 1 byte at address GR[op1] into GR[dest]'/>
+							<InstructionTableItem name='lds'  opcode={4} extensions={[ "1" ]} operation='Loads 2 bytes at address GR[op1] into GR[dest]'/>
+							<InstructionTableItem name='ldi'  opcode={4} extensions={[ "2" ]} operation='Loads 4 bytes at address GR[op1] into GR[dest]'/>
+							<InstructionTableItem name='ldq'  opcode={4} extensions={[ "3" ]} operation='Loads 8 bytes at address GR[op1] into GR[dest]'/>
 							<InstructionTableItem name='fpl2' opcode={4} extensions={[ "4" ]} operation='Loads a 16-bit float at address GR[op1] into FR[dest]'/>
 							<InstructionTableItem name='fpl4' opcode={4} extensions={[ "5" ]} operation='Loads a 32-bit float at address GR[op1] into FR[dest]'/>
 							<InstructionTableItem name='fpl8' opcode={4} extensions={[ "6" ]} operation='Loads a 64-bit float at address GR[op1] into FR[dest]'/>
@@ -215,14 +215,6 @@ function App() {
 							</tr>
 
 							<InstructionTableItem name='jmp' opcode={5} extensions={[ "0" ]} operation='IP = GR[op1]'/>
-
-							<tr>
-								<td>jmp</td>
-								<td>5</td>
-								<td>0</td>
-								<td>IP = GR[op1]</td>
-							</tr>
-
 						</table>
 					</ContentItem>
 				</div>
