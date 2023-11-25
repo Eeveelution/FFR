@@ -9,12 +9,12 @@ module InstructionDecode (
     opcode,
     predicate,
 
+    
     regOp,
     regOpperand1,
     regOpperand2,
     regDest
 );
-
     input wire clk, decodeEnable;
     input reg [`GR_SIZE] instructionData;
 

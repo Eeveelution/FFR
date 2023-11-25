@@ -217,6 +217,40 @@ function App() {
 							<InstructionTableItem name='jmp' opcode={5} extensions={[ "0" ]} operation='IP = GR[op1]'/>
 						</table>
 					</ContentItem>
+
+					<ContentItem id='memory-mapping-io' title='Memory Mapping and I/O'>
+						<p>
+							All Memory I/O is memory mapped. There is no in-port or out-port instructions
+							like you'd find in x86. All Devices have a certain Memory Range to which they respond to.
+							
+							This is the default memory map: 
+
+							<br/><br/>
+							
+							<table className="format-tables" style={{ width: "100%" }}>
+								<tr style={{ fontSize: "10pt" }}>
+									<td>0xFFFFFFFFFFFFFFFF</td>
+									<td>0xFFFFEFFFFFFFFFFF</td>
+								</tr>
+								<tr>
+									<td style={{ 
+										textAlign: "center", 
+										height: "40px", 
+										width: "25%",
+										backgroundColor: "gray", 
+										color: "white",
+										fontSize: "10pt"
+									}}>
+										Total Accessible Main Memory (16TB)
+									</td>
+								</tr>
+								<tr>
+
+								</tr>
+							</table>
+							
+						</p>
+					</ContentItem>
 				</div>
 			</div>
 		</div>
