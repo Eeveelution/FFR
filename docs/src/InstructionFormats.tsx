@@ -6,7 +6,7 @@ export function FmtRegisterOperation() {
         { name: "Opperand 1",  size: 6,  color: "green" },
         { name: "Opperand 2",  size: 6,  color: "green" },
         { name: "Destination", size: 6,  color: "orange", lightColor: true },
-        { name: "Remaining",   size: 28, color: "gray" },
+        { name: "Immediate",   size: 28, color: "yellow", lightColor: true },
     ]} />
 }
 

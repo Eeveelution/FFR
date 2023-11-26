@@ -4,6 +4,7 @@ import ContentItem from './Components/ContentItem';
 import InstructionFormat from './Components/InstructionFormat';
 import { FmtEmpty, FmtRegisterOperation } from './InstructionFormats';
 import { InstructionTableItem } from './Components/InstructionTableItem';
+import { AsmInst, AssignFromTwo, HexLiteral, Literal, Predicate, Register } from './Components/AssemblyFormatComponents';
 
 function App() {
 	return (
@@ -20,6 +21,9 @@ function App() {
 						<ul>
 							<li><a href="#about">About FFR</a></li>
 							<li><a href="#inst-format">Instruction Format</a></li>
+							<li><a href="#individual-insts-format">All Instruction Encodings</a></li>
+							<li><a href="#instructions">Instructions</a></li>
+							<li><a href="#assembler-syntax">Default Assembler Syntax</a></li>
 						</ul>
 					</ContentItem>
 
@@ -71,10 +75,8 @@ function App() {
 							<br /> &nbsp;&nbsp;&nbsp;&nbsp;
 
 							<code>
-								<span style={{ color: "greenyellow" }}> cmpeq</span>
-								<span style={{ color: "coral" }}> r12</span>,
-								<span style={{ color: "coral" }}> r13</span> =
-								<span style={{ color: "coral" }}> r8</span>
+								<AsmInst inst='cmpeq' />
+								<AssignFromTwo op1={12} op2={13} dest={14} />
 							</code>
 
 							<br /> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -88,11 +90,9 @@ function App() {
 							<br /> &nbsp;&nbsp;&nbsp;&nbsp;
 
 							<code>
-								<span style={{ color: "blueviolet" }}> (8) </span>
-								<span style={{ color: "greenyellow" }}>mul</span>
-								<span style={{ color: "coral" }}> r31</span>,
-								<span style={{ color: "coral" }}> r32 </span> =
-								<span style={{ color: "coral" }}> r33 </span>
+								<Predicate n={8} />
+								<AsmInst inst='mul' />
+								<AssignFromTwo op1={31} op2={32} dest={33} />
 							</code>
 
 							<br /> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -159,8 +159,8 @@ function App() {
 								<td>Operation</td>
 							</tr>
 
-							<InstructionTableItem name='mov' opcode={1} extensions={[ "0" ]} operation='GR[dest] = GR[op1]'/>
-							<InstructionTableItem name='fmov' opcode={1} extensions={[ "1" ]} operation='FR[dest] = FR[op1]'/>
+							<InstructionTableItem name='mov'  opcode={1} extensions={[ "0" ]} operation='GR[dest] = GR[op1]'/>
+							<InstructionTableItem name='f.mov' opcode={1} extensions={[ "1" ]} operation='FR[dest] = FR[op1]'/>
 
 							<tr>
 								<td>------</td>
@@ -169,16 +169,34 @@ function App() {
 								<td></td>
 							</tr>
 
-							<InstructionTableItem name='add' opcode={2} extensions={[ "0" ]} operation='GR[op1] + GR[op2] = GR[dest]'/>
-							<InstructionTableItem name='sub' opcode={2} extensions={[ "1" ]} operation='GR[op1] - GR[op2] = GR[dest]'/>
-							<InstructionTableItem name='mul' opcode={2} extensions={[ "2" ]} operation='GR[op1] * GR[op2] = GR[dest]'/>
-							<InstructionTableItem name='div' opcode={2} extensions={[ "3" ]} operation='GR[op1] / GR[op2] = GR[dest]'/>
-							<InstructionTableItem name='bsl' opcode={2} extensions={[ "4" ]} operation='GR[op1] << GR[op2] = GR[dest]'/>
-							<InstructionTableItem name='bsr' opcode={2} extensions={[ "5" ]} operation='GR[op1] >> GR[op2] = GR[dest]'/>
-							<InstructionTableItem name='and' opcode={2} extensions={[ "6" ]} operation='GR[op1] & GR[op2] = GR[dest]'/>
-							<InstructionTableItem name='or'  opcode={2} extensions={[ "6" ]} operation='GR[op1] | GR[op2] = GR[dest]'/>
-							<InstructionTableItem name='not' opcode={2} extensions={[ "6" ]} operation='GR[op1] ~ GR[op2] = GR[dest]'/>
-							<InstructionTableItem name='xor' opcode={2} extensions={[ "6" ]} operation='GR[op1] ^ GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='add'  opcode={2} extensions={[ "0" ]}  operation='GR[op1] + GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='sub'  opcode={2} extensions={[ "1" ]}  operation='GR[op1] - GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='mul'  opcode={2} extensions={[ "2" ]}  operation='GR[op1] * GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='div'  opcode={2} extensions={[ "3" ]}  operation='GR[op1] * GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='bsl'  opcode={2} extensions={[ "4" ]}  operation='GR[op1] << GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='bsr'  opcode={2} extensions={[ "5" ]}  operation='GR[op1] >> GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='and'  opcode={2} extensions={[ "6" ]}  operation='GR[op1] & GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='or'   opcode={2} extensions={[ "7" ]}  operation='GR[op1] | GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='not'  opcode={2} extensions={[ "8" ]}  operation='GR[op1] ~ GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='xor'  opcode={2} extensions={[ "9" ]}  operation='GR[op1] ^ GR[op2] = GR[dest]'/>
+
+							<tr>
+								<td>------</td>
+								<td>Integer ALU (with Immediates)</td>
+								<td></td>
+								<td></td>
+							</tr>
+
+							<InstructionTableItem name='add.i'  opcode={3} extensions={[ "0" ]}  operation='GR[op1] + imm = GR[dest]'/>
+							<InstructionTableItem name='sub.i'  opcode={3} extensions={[ "1" ]}  operation='GR[op1] - imm = GR[dest]'/>
+							<InstructionTableItem name='mul.i'  opcode={3} extensions={[ "2" ]}  operation='GR[op1] * imm = GR[dest]'/>
+							<InstructionTableItem name='div.i'  opcode={3} extensions={[ "3" ]}  operation='GR[op1] * imm = GR[dest]'/>
+							<InstructionTableItem name='bsl.i'  opcode={3} extensions={[ "4" ]}  operation='GR[op1] << imm = GR[dest]'/>
+							<InstructionTableItem name='bsr.i'  opcode={3} extensions={[ "5" ]}  operation='GR[op1] >> imm = GR[dest]'/>
+							<InstructionTableItem name='and.i'  opcode={3} extensions={[ "6" ]}  operation='GR[op1] & imm = GR[dest]'/>
+							<InstructionTableItem name='or.i'   opcode={3} extensions={[ "7" ]}  operation='GR[op1] | imm = GR[dest]'/>
+							<InstructionTableItem name='not.i'  opcode={3} extensions={[ "8" ]}  operation='GR[op1] ~ imm = GR[dest]'/>
+							<InstructionTableItem name='xor.i'  opcode={3} extensions={[ "9" ]}  operation='GR[op1] ^ imm = GR[dest]'/>
 
 							<tr>
 								<td>------</td>
@@ -187,10 +205,10 @@ function App() {
 								<td></td>
 							</tr>
 
-							<InstructionTableItem name='cmpeq'  opcode={3} extensions={[ "0" ]} operation='GR[op1] == GR[op2] = GR[dest]'/>
-							<InstructionTableItem name='cmpgt'  opcode={3} extensions={[ "1" ]} operation='GR[op1] > GR[op2] = GR[dest]'/>
-							<InstructionTableItem name='fcmpeq' opcode={3} extensions={[ "2" ]} operation='FR[op1] > FR[op2] = GR[dest]'/>
-							<InstructionTableItem name='fcmpgt' opcode={3} extensions={[ "3" ]} operation='FR[op1] > FR[op2] = GR[dest]'/>
+							<InstructionTableItem name='cmpeq'   opcode={4} extensions={[ "0" ]} operation='GR[op1] == GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='cmpgt'   opcode={4} extensions={[ "1" ]} operation='GR[op1] > GR[op2] = GR[dest]'/>
+							<InstructionTableItem name='f.cmpeq' opcode={4} extensions={[ "2" ]} operation='FR[op1] == FR[op2] = GR[dest]'/>
+							<InstructionTableItem name='f.cmpgt' opcode={4} extensions={[ "3" ]} operation='FR[op1] > FR[op2] = GR[dest]'/>
 
 							<tr>
 								<td>------</td>
@@ -199,13 +217,13 @@ function App() {
 								<td></td>
 							</tr>
 
-							<InstructionTableItem name='ldb'  opcode={4} extensions={[ "0" ]} operation='Loads 1 byte at address GR[op1] into GR[dest]'/>
-							<InstructionTableItem name='lds'  opcode={4} extensions={[ "1" ]} operation='Loads 2 bytes at address GR[op1] into GR[dest]'/>
-							<InstructionTableItem name='ldi'  opcode={4} extensions={[ "2" ]} operation='Loads 4 bytes at address GR[op1] into GR[dest]'/>
-							<InstructionTableItem name='ldq'  opcode={4} extensions={[ "3" ]} operation='Loads 8 bytes at address GR[op1] into GR[dest]'/>
-							<InstructionTableItem name='fpl2' opcode={4} extensions={[ "4" ]} operation='Loads a 16-bit float at address GR[op1] into FR[dest]'/>
-							<InstructionTableItem name='fpl4' opcode={4} extensions={[ "5" ]} operation='Loads a 32-bit float at address GR[op1] into FR[dest]'/>
-							<InstructionTableItem name='fpl8' opcode={4} extensions={[ "6" ]} operation='Loads a 64-bit float at address GR[op1] into FR[dest]'/>
+							<InstructionTableItem name='ldb'   opcode={5} extensions={[ "0" ]} operation='Loads 1 byte at address GR[op1] into GR[dest]'/>
+							<InstructionTableItem name='lds'   opcode={5} extensions={[ "1" ]} operation='Loads 2 bytes at address GR[op1] into GR[dest]'/>
+							<InstructionTableItem name='ldi'   opcode={5} extensions={[ "2" ]} operation='Loads 4 bytes at address GR[op1] into GR[dest]'/>
+							<InstructionTableItem name='ldq'   opcode={5} extensions={[ "3" ]} operation='Loads 8 bytes at address GR[op1] into GR[dest]'/>
+							<InstructionTableItem name='f.ld2' opcode={5} extensions={[ "4" ]} operation='Loads a 16-bit float at address GR[op1] into FR[dest]'/>
+							<InstructionTableItem name='f.ld4' opcode={5} extensions={[ "5" ]} operation='Loads a 32-bit float at address GR[op1] into FR[dest]'/>
+							<InstructionTableItem name='f.ld8' opcode={5} extensions={[ "6" ]} operation='Loads a 64-bit float at address GR[op1] into FR[dest]'/>
 
 							<tr>
 								<td>------</td>
@@ -214,41 +232,29 @@ function App() {
 								<td></td>
 							</tr>
 
-							<InstructionTableItem name='jmp' opcode={5} extensions={[ "0" ]} operation='IP = GR[op1]'/>
+							<InstructionTableItem name='jmp' opcode={6} extensions={[ "0" ]} operation='IP = GR[op1]'/>
 						</table>
 					</ContentItem>
 
-					<ContentItem id='memory-mapping-io' title='Memory Mapping and I/O'>
+					<ContentItem id='assembler-syntax' title='Default Assembler Syntax'>
 						<p>
-							All Memory I/O is memory mapped. There is no in-port or out-port instructions
-							like you'd find in x86. All Devices have a certain Memory Range to which they respond to.
-							
-							This is the default memory map: 
+							The Default FFR Assembler is used to assemble FFR Assembly Programs. 
+							It outputs raw binary instructions, it does not package the program in ELF or PE or other formats.
+						</p>
 
-							<br/><br/>
-							
-							<table className="format-tables" style={{ width: "100%" }}>
-								<tr style={{ fontSize: "10pt" }}>
-									<td>0xFFFFFFFFFFFFFFFF</td>
-									<td>0xFFFFEFFFFFFFFFFF</td>
-								</tr>
-								<tr>
-									<td style={{ 
-										textAlign: "center", 
-										height: "40px", 
-										width: "25%",
-										backgroundColor: "gray", 
-										color: "white",
-										fontSize: "10pt"
-									}}>
-										Total Accessible Main Memory (16TB)
-									</td>
-								</tr>
-								<tr>
+						<br />
 
-								</tr>
-							</table>
-							
+						<p>
+							<b>Registers</b> are prefixed with <span style={{ color: "coral" }}>$r</span>, for example <Register n={12} />, <Register n={31} />, etc.
+						</p>
+
+						<p>
+							<b>Literals</b> are prefixed with <span style={{ color: "yellow" }}>#</span>, for example <Literal n={6969} />, <Literal n={1337} />, etc.
+							<br/> There are also hexadecimal Literals which are prefixed with <span style={{ color: "yellow" }}>#x</span>, for example <HexLiteral n='8000' />, <HexLiteral n='AFAF' />
+						</p>
+
+						<p>
+							<b>Predicates</b> come before the mnemonic for any assembly instruction, they go into parenthesis like this: <Predicate n={8} />
 						</p>
 					</ContentItem>
 				</div>
